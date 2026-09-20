@@ -16,11 +16,11 @@
       devShells = forAllSystems (system:
         let
           pkgs = import nixpkgs { inherit system; };
-          linuxPackages = with pkgs; nixpkgs.lib.optionals stdenv.isLinux [
+          linuxPackages = with pkgs; nixpkgs.lib.optionals stdenv.hostPlatform.isLinux [
             gtk3
             libayatana-appindicator
-            libdbus
-            libmpv
+            dbus
+            mpv
             librsvg
             openssl
             pkg-config
