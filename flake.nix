@@ -57,6 +57,17 @@
               url = "https://github.com/denoland/rusty_v8/releases/download/v130.0.7/librusty_v8_release_x86_64-unknown-linux-gnu.a.gz";
               hash = "sha256-pkdsuU6bAkcIHEZUJOt5PXdzK424CEgTLXjLtQ80t10=";
             };
+            desktopFile = pkgs.writeText "limusic.desktop" ''
+              [Desktop Entry]
+              Type=Application
+              Name=Limusic
+              Comment=Desktop YouTube Music client
+              Exec=limusic
+              Icon=limusic
+              Terminal=false
+              Categories=AudioVideo;Audio;Player;
+              StartupWMClass=limusic
+            '';
           in
           pkgs.rustPlatform.buildRustPackage {
             pname = "limusic";
@@ -110,6 +121,10 @@
 
             installPhase = ''
               install -Dm755 target/release/limusic-app $out/bin/limusic
+              install -Dm644 src-tauri/icons/128x128.png \
+                $out/share/icons/hicolor/128x128/apps/limusic.png
+              install -Dm644 ${desktopFile} \
+                $out/share/applications/limusic.desktop
             '';
 
             env = {
