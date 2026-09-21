@@ -4,10 +4,7 @@
   "version": "0.8.1",
   "identifier": "com.limusic.desktop",
   "build": {
-    "frontendDist": "../ui/build",
-    "devUrl": "http://localhost:5183",
-    "beforeDevCommand": "pnpm dev",
-    "beforeBuildCommand": "pnpm build"
+    "frontendDist": "../ui/build"
   },
   "app": {
     "windows": [
