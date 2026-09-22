@@ -97,6 +97,7 @@
               rustPlatform.cargoSetupHook
               cargo
               rustc
+              makeWrapper
             ];
 
             buildInputs = with pkgs; [
@@ -106,6 +107,7 @@
               openssl
               gtk3
               glib
+              glib-networking
               libayatana-appindicator
               dbus
             ];
@@ -121,6 +123,9 @@
 
             installPhase = ''
               install -Dm755 target/release/limusic-app $out/bin/limusic
+              wrapProgram $out/bin/limusic \
+                --set GIO_MODULE_DIR "${pkgs.glib-networking}/lib/gio/modules" \
+                --set GIO_EXTRA_MODULES "${pkgs.glib-networking}/lib/gio/modules"
               install -Dm644 src-tauri/icons/128x128.png \
                 $out/share/icons/hicolor/128x128/apps/limusic.png
               install -Dm644 ${desktopFile} \
