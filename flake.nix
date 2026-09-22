@@ -109,7 +109,6 @@
               glib
               glib-networking
               libayatana-appindicator
-              dbus
             ];
 
             preBuild = ''
