@@ -41,6 +41,8 @@
               export RUST_SRC_PATH="${pkgs.rustPlatform.rustLibSrc}"
               export GIO_MODULE_DIR="${pkgs.glib-networking}/lib/gio/modules"
               export GIO_EXTRA_MODULES="${pkgs.glib-networking}/lib/gio/modules"
+              # GTK's file chooser (the local-music folder picker) aborts without its GSettings schemas.
+              export XDG_DATA_DIRS="$GSETTINGS_SCHEMAS_PATH:$XDG_DATA_DIRS"
               export LD_LIBRARY_PATH="${pkgs.lib.makeLibraryPath linuxPackages}''${LD_LIBRARY_PATH:+:$LD_LIBRARY_PATH}"
             '';
           };
