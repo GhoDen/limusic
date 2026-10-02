@@ -1,3 +1,4 @@
+# Community-maintained development shell; it is not covered by CI.
 {
   description = "Development environment for Limusic";
 
@@ -14,9 +15,10 @@
       devShells = forAllSystems (system:
         let
           pkgs = import nixpkgs { inherit system; };
-          linuxPackages = with pkgs; nixpkgs.lib.optionals stdenv.hostPlatform.isLinux [
+          linuxPackages = with pkgs; [
             gtk3
             libayatana-appindicator
+            dbus
             mpv
             librsvg
             openssl
@@ -39,9 +41,7 @@
               export RUST_SRC_PATH="${pkgs.rustPlatform.rustLibSrc}"
               export GIO_MODULE_DIR="${pkgs.glib-networking}/lib/gio/modules"
               export GIO_EXTRA_MODULES="${pkgs.glib-networking}/lib/gio/modules"
-              ${pkgs.lib.optionalString pkgs.stdenv.isLinux ''
               export LD_LIBRARY_PATH="${pkgs.lib.makeLibraryPath linuxPackages}''${LD_LIBRARY_PATH:+:$LD_LIBRARY_PATH}"
-              ''}
             '';
           };
         });
